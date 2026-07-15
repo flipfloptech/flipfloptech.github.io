@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# oberdorf.tech
 
-## Getting Started
+Personal site for **Justin Oberdorf** — Lustre / HPC storage expert, DDN TAM for strategic accounts, late-night tinkerer.
 
-First, run the development server:
+## Stack
+
+- [Next.js](https://nextjs.org/) (App Router, static export)
+- [Tailwind CSS](https://tailwindcss.com/)
+- Markdown blog under `content/blog/`
+- Editable profile data under `src/content/`
+
+## Develop
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build (static)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Output lands in `out/` — ready for GitHub Pages or any static host.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy: GitHub Pages + Cloudflare DNS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push this repo to GitHub (e.g. `flipfloptech/oberdorf.tech` or `flipfloptech/my-site`).
+2. **Settings → Pages → Build and deployment**: Source = **GitHub Actions**.
+3. Push to `main` (or run the **Deploy to GitHub Pages** workflow).
+4. After the first deploy, note the Pages URL, then in Cloudflare DNS for `oberdorf.tech`:
+   - **Apex** `oberdorf.tech`: A records to GitHub Pages IPs  
+     `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`  
+     (or CNAME flattening to `flipfloptech.github.io` if you use a user/org site).
+   - **www** (optional): CNAME → `flipfloptech.github.io` (or your project pages host).
+5. In the repo **Settings → Pages → Custom domain**, add `oberdorf.tech` (CNAME file is already in `public/`).
+6. Prefer Cloudflare SSL mode **Full** once GitHub cert is active; enable **Always Use HTTPS**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Alternative: Cloudflare Pages
 
-## Deploy on Vercel
+Point the same `out/` build at Cloudflare Pages (connect the GitHub repo, build command `npm run build`, output directory `out`). Custom domain is then one click in the Cloudflare dashboard.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Content
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Path | Purpose |
+|------|---------|
+| `src/content/site.ts` | Name, bio, links, nav |
+| `src/content/experience.ts` | Roles / timeline |
+| `src/content/projects.ts` | Project cards |
+| `src/content/skills.ts` | Skill groups |
+| `src/content/security.ts` | Advisories |
+| `src/content/interests.ts` | Type-R, Funwheel, etc. |
+| `content/blog/*.md` | Blog posts (frontmatter: title, description, date, tags) |
+
+## License
+
+Private / personal use unless you say otherwise.

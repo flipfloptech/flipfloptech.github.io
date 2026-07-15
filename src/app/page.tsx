@@ -1,65 +1,107 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Section } from "@/components/Section";
+import { site } from "@/content/site";
+import { getAllPosts } from "@/lib/blog";
 
-export default function Home() {
+export default function HomePage() {
+  const posts = getAllPosts().slice(0, 5);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* Hero */}
+      <div className="bg-nebula">
+        <div className="mx-auto max-w-6xl px-4 pt-20 pb-8 sm:px-6 sm:pt-28 sm:pb-10">
+          <div className="max-w-3xl">
+            <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-accent">
+              {site.location} · {site.company}
+            </p>
+            <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+              {site.name}
+              <span className="mt-2 block text-2xl font-normal text-muted sm:text-3xl">
+                <span className="text-lime">//</span> {site.tagline}
+              </span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+              {site.pitch}
+            </p>
+
+            <div className="mt-12 grid gap-3 font-mono text-xs text-muted sm:grid-cols-3">
+              <div className="rounded-lg border border-border bg-surface/60 px-4 py-3">
+                <div className="text-accent">role</div>
+                <div className="mt-1 text-foreground">{site.role}</div>
+              </div>
+              <div className="rounded-lg border border-border bg-surface/60 px-4 py-3">
+                <div className="text-accent">focus</div>
+                <div className="mt-1 text-foreground">Lustre · Exascaler · AI storage</div>
+              </div>
+              <div className="rounded-lg border border-border bg-surface/60 px-4 py-3">
+                <div className="text-accent">side quest</div>
+                <div className="mt-1 text-foreground">Security research · hardware</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {posts.length > 0 && (
+          <Section
+            className="!pt-6 sm:!pt-8 !pb-12 sm:!pb-14"
+            eyebrow="blog"
+            title="Recent posts"
+            description="Notes from the field — storage, tooling, and whatever broke lately."
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <div className="space-y-3">
+              {posts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}/`}
+                  className="flex flex-col gap-1 rounded-xl border border-border bg-surface/60 px-5 py-4 transition hover:border-accent/40 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div>
+                    <h3 className="font-medium text-foreground">{post.title}</h3>
+                    <p className="mt-1 text-sm text-muted">{post.description}</p>
+                  </div>
+                  <span className="shrink-0 font-mono text-xs text-muted">{post.date}</span>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-6">
+              <Link href="/blog/" className="font-mono text-sm text-accent hover:underline">
+                all posts →
+              </Link>
+            </div>
+          </Section>
+        )}
+
+        <section className="mb-20 rounded-2xl border border-border/80 bg-surface px-6 py-12 shadow-[0_0_40px_color-mix(in_srgb,var(--cosmic-magenta)_8%,transparent)] backdrop-blur-sm sm:px-10">
+          <div className="mx-auto max-w-md">
+            <p className="text-center font-mono text-xs uppercase tracking-[0.2em] text-accent">
+              Contact
+            </p>
+            <dl className="mt-8 space-y-4 font-mono text-sm">
+              {site.contact.map((c) => (
+                <div
+                  key={c.label}
+                  className="flex flex-col gap-1 border-b border-border/60 pb-4 last:border-0 last:pb-0 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                >
+                  <dt className="shrink-0 text-muted">{c.label}</dt>
+                  <dd className="sm:text-right">
+                    <a
+                      href={c.href}
+                      target={c.href.startsWith("http") ? "_blank" : undefined}
+                      rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="text-foreground transition hover:text-accent"
+                    >
+                      {c.value}
+                    </a>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }

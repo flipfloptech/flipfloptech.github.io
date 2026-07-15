@@ -1,0 +1,52 @@
+export const site = {
+  name: "Justin Oberdorf",
+  tagline: "Lustre Expert, Hacker, Tinkerer, Breaker of things",
+  title: "Lustre / HPC Storage Expert",
+  role: "Technical Account Manager — Strategic Accounts",
+  company: "DDN",
+  location: "remote · us-east",
+  domain: "oberdorf.tech",
+  url: "https://oberdorf.tech",
+  email: "justin@oberdorf.tech",
+  emailWork: "joberdorf@ddn.com",
+  github: "https://github.com/flipfloptech",
+  githubHandle: "flipfloptech",
+  linkedin: "https://www.linkedin.com/in/justin-oberdorf",
+  contact: [
+    {
+      label: "personal",
+      value: "justin@oberdorf.tech",
+      href: "mailto:justin@oberdorf.tech",
+    },
+    {
+      label: "work",
+      value: "joberdorf@ddn.com",
+      href: "mailto:joberdorf@ddn.com",
+    },
+    {
+      label: "github",
+      value: "@flipfloptech",
+      href: "https://github.com/flipfloptech",
+    },
+  ] as const,
+  avatar: "https://avatars.githubusercontent.com/u/109311040?v=4",
+  bio: "HPC/ML Storage Expert and late-night tinkerer",
+  pitch:
+    "DDN Exascaler / Lustre storage expert for strategic AI accounts. 30+ years across Linux, open source, and making large storage systems behave.",
+  about: [
+    "I'm Justin Oberdorf — a Lustre and HPC storage specialist by day, and a late-night tinkerer who still can't resist taking things apart to see how they fail.",
+    "As a Technical Account Manager for Strategic Accounts at DDN, I help customers keep Exascaler / Lustre environments honest under real AI and HPC workloads. Deep storage expertise is the job. Shipping credibility with customers is the craft.",
+    "Security research is a serious hobby, not the headline. I've published advisories and tools when things weren't as locked down as vendors hoped — because understanding how systems break is part of keeping them running.",
+    "When I'm not living in logs and Lustre, you'll find me on a 2025 Civic Type-R, a custom VESC Funwheel, or feeding a Bambu Lab X2D with too many AMS slots.",
+  ],
+  nav: [
+    { href: "/", label: "Home" },
+    { href: "/about/", label: "About" },
+    { href: "/experience/", label: "Experience" },
+    { href: "/projects/", label: "Projects" },
+    { href: "/skills/", label: "Skills" },
+    { href: "/security/", label: "Security" },
+    { href: "/interests/", label: "Interests" },
+    { href: "/blog/", label: "Blog" },
+  ],
+} as const;
