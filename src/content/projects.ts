@@ -14,8 +14,8 @@ export const projects: Project[] = [
     description:
       "An opinionated filesystem written with AI — systems thinking meets modern tooling.",
     href: "https://github.com/flipfloptech/squeezefs",
-    language: "Rust",
-    tags: ["filesystem", "rust", "storage"],
+    language: "Zig",
+    tags: ["filesystem", "Zig", "storage"],
     featured: true,
   },
   {
